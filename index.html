@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ultimate Gift - Dhammadana</title>
+    <style>
+        /* --- Minimal & Artisan Aesthetics --- */
+        body {
+            background-color: #000000; /* พื้นดำสนิทสื่อถึงความว่างเปล่า */
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* ป้องกันการเลื่อนหน้าจอ */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        #dhamma-container {
+            width: 85%;
+            text-align: center;
+            position: relative;
+        }
+
+        #display-text {
+            color: #D4AF37; /* สีทอง Metallic Gold */
+            font-size: 3.5rem; /* ตัวใหญ่ชัดเจนกลางจอ */
+            line-height: 1.4;
+            opacity: 0; /* เริ่มต้นด้วยความว่าง */
+            transition: opacity 1.5s ease-in-out; /* การจางหายที่นุ่มนวล */
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        /* --- เอฟเฟกต์กระพริบดึงสติ (Blink Animation) --- */
+        @keyframes gold-blink {
+            0% { opacity: 0; transform: scale(0.98); }
+            25% { opacity: 1; text-shadow: 0 0 25px #D4AF37; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1); }
+            75% { opacity: 1; text-shadow: 0 0 30px #D4AF37; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .blink-active {
+            animation: gold-blink 1.2s ease-in-out;
+        }
+
+        /* สำหรับหน้าจอขนาดเล็ก */
+        @media (max-width: 600px) {
+            #display-text { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="dhamma-container">
+        <div id="display-text">Starting...</div>
+    </div>
+
+    <script>
+        // ข้อมูล Q&A ทั้ง 4 บาทพระคาถา (ฉบับภาษาอังกฤษล้วน)
+        const dhammadanaQA = [
+            { q: "What gift excels all gifts?", a: "The gift of Dhamma excels all gifts." },
+            { q: "What flavor excels all flavors?", a: "The flavor of Dhamma excels all flavors." },
+            { q: "What delight excels all delights?", a: "The delight in Dhamma excels all delights." },
+            { q: "What conquest conquers all suffering?", a: "The ending of craving conquers all suffering." }
+        ];
+
+        const displayElement = document.getElementById('display-text');
+
+        // ฟังก์ชันช่วยหน่วงเวลา
+        const pause = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+        async function startEternalStream() {
+            // รอให้ใจสงบก่อนเริ่มรอบแรก 2 วินาที
+            await pause(2000);
+
+            while (true) {
+                for (const item of dhammadanaQA) {
+                    
+                    // --- ๑. ส่วนของคำถาม (ท้าวสักกะ) ---
+                    displayElement.innerText = item.q;
+                    displayElement.classList.add('blink-active');
+                    displayElement.style.opacity = 1;
+                    
+                    await pause(3500); // ค้างไว้ให้พิจารณาคำถาม
+                    
+                    displayElement.classList.remove('blink-active');
+                    displayElement.style.opacity = 0; // ค่อยๆ จางหาย
+                    await pause(2000); // ช่วงว่างเปล่า (ความเงียบ)
+
+                    // --- ๒. ส่วนของคำตอบ (พระบรมพุทธบิดร) ---
+                    displayElement.innerText = item.a;
+                    displayElement.classList.add('blink-active');
+                    displayElement.style.opacity = 1;
+                    
+                    await pause(7000); // หน่วงเวลาคำตอบนานหน่อย เพื่อซึมซับรสแห่งธรรม
+                    
+                    displayElement.classList.remove('blink-active');
+                    displayElement.style.opacity = 0; // ค่อยๆ จางหาย
+                    await pause(2500); // ช่วงว่างเปล่าก่อนบาทถัดไป
+                }
+                
+                // จบครบ 4 บาทพระคาถา พักสักครู่ก่อนเริ่ม Loop ใหม่
+                await pause(3000);
+            }
+        }
+
+        // เริ่มต้นการให้ธรรมทาน
+        startEternalStream();
+    </script>
+</body>
+</html>
